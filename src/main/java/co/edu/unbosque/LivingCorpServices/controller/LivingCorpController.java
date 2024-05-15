@@ -2,7 +2,12 @@ package co.edu.unbosque.LivingCorpServices.controller;
 
 import co.edu.unbosque.LivingCorpServices.exception.ServiceProviderNotFound;
 import co.edu.unbosque.LivingCorpServices.model.dto.ServiceProviderDTO;
+import co.edu.unbosque.LivingCorpServices.model.dto.ServiceRFQDTO;
+import co.edu.unbosque.LivingCorpServices.model.dto.ServiceRequestDTO;
+import co.edu.unbosque.LivingCorpServices.model.dto.WebUserDTO;
 import co.edu.unbosque.LivingCorpServices.services.ServiceProviderService;
+import co.edu.unbosque.LivingCorpServices.services.ServiceRFQService;
+import co.edu.unbosque.LivingCorpServices.services.ServiceRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +18,14 @@ import java.util.List;
 public class LivingCorpController implements ILivingCorpAPI{
 
     private final ServiceProviderService serviceProviderService;
+    private final ServiceRequestService serviceRequestService;
+    private final ServiceRFQService serviceRFQService;
 
     @Autowired
-    public LivingCorpController(ServiceProviderService serviceProviderService) {
+    public LivingCorpController(ServiceProviderService serviceProviderService, ServiceRequestService serviceRequestService, ServiceRFQService serviceRFQService) {
         this.serviceProviderService = serviceProviderService;
+        this.serviceRequestService = serviceRequestService;
+        this.serviceRFQService = serviceRFQService;
     }
 
     @Override
@@ -43,10 +52,65 @@ public class LivingCorpController implements ILivingCorpAPI{
     }
 
     @Override
-    public ResponseEntity<Void> deleteServiceProvidersById(int providerId) {
-        serviceProviderService.deleteServiceProvider(providerId);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    public ResponseEntity<List<ServiceRequestDTO>> getAllRequests() {
+        return ResponseEntity.ok(serviceRequestService.getAllServiceRequests());
     }
 
+    @Override
+    public ResponseEntity<ServiceRequestDTO> getRequestsById(int requestId) {
+        ServiceRequestDTO serviceRequestDTO = serviceRequestService.getServiceRequestsByServiceId(requestId);
+        return ResponseEntity
+                .status(HttpStatus.OK.value())
+                .body(serviceRequestDTO);
+    }
+
+    @Override
+    public ResponseEntity<List<ServiceRequestDTO>> getServiceRequestsByUser(WebUserDTO user) {
+        List<ServiceRequestDTO> serviceRequests = serviceRequestService.getServiceRequestsByUser(user);
+        return ResponseEntity.ok(serviceRequests);
+    }
+
+    @Override
+    public ResponseEntity<List<ServiceRequestDTO>> getServiceRequestsByServiceProvider(ServiceProviderDTO serviceProviderDTO) {
+        List<ServiceRequestDTO> serviceRequests = serviceRequestService.getServiceRequestsByServiceProvider(serviceProviderDTO);
+        return ResponseEntity.ok(serviceRequests);
+    }
+
+    @Override
+    public ResponseEntity<ServiceRequestDTO> createServiceRequest(ServiceRequestDTO serviceRequestDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(serviceRequestService.saveServiceRequest(serviceRequestDTO));
+    }
+
+    //aaaaaaaaaaaaaaaaa
+
+    @Override
+    public ResponseEntity<List<ServiceRFQDTO>> getAllRFQ() {
+        return ResponseEntity.ok(serviceRFQService.getAllServicesRFQ());
+    }
+
+    @Override
+    public ResponseEntity<ServiceRFQDTO> getServiceRFQById(int rfqId) {
+        ServiceRFQDTO serviceRFQDTO = serviceRFQService.getServiceRFQById(rfqId);
+        return ResponseEntity
+                .status(HttpStatus.OK.value())
+                .body(serviceRFQDTO);
+    }
+
+    @Override
+    public ResponseEntity<List<ServiceRFQDTO>> getServiceRFQByUser(WebUserDTO user) {
+        List<ServiceRFQDTO> serviceRFQRequests = serviceRFQService.getServiceRFQByUser(user);
+        return ResponseEntity.ok(serviceRFQRequests);
+    }
+
+    @Override
+    public ResponseEntity<List<ServiceRFQDTO>> getServiceRFQByServiceProvider(ServiceProviderDTO serviceProviderDTO) {
+        List<ServiceRFQDTO> serviceRFQRequests = serviceRFQService.getServiceRFQByServiceProvider(serviceProviderDTO);
+        return ResponseEntity.ok(serviceRFQRequests);
+    }
+
+    @Override
+    public ResponseEntity<ServiceRFQDTO> createServiceRFQ(ServiceRFQDTO serviceRFQ) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(serviceRFQService.saveServiceRFQ(serviceRFQ));
+    }
 
 }

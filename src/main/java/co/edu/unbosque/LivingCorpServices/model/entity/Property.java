@@ -51,6 +51,10 @@ public class Property {
         this.isAvailableForSale = isAvailableForSale;
     }
 
+    public Property() {
+
+    }
+
     public int getPropertyId() {
         return propertyId;
     }

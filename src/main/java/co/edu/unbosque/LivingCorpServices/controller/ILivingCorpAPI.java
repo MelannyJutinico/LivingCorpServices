@@ -1,6 +1,9 @@
 package co.edu.unbosque.LivingCorpServices.controller;
 
 import co.edu.unbosque.LivingCorpServices.model.dto.ServiceProviderDTO;
+import co.edu.unbosque.LivingCorpServices.model.dto.ServiceRFQDTO;
+import co.edu.unbosque.LivingCorpServices.model.dto.ServiceRequestDTO;
+import co.edu.unbosque.LivingCorpServices.model.dto.WebUserDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +30,47 @@ public interface ILivingCorpAPI {
     @GetMapping("/provider/{providerId}")
     ResponseEntity<ServiceProviderDTO> getServiceProvidersById(@PathVariable int providerId);
 
-    @Operation(summary = "Eliminar un proveedor por id", description = "Elimina un proveedor con su id")
-    @DeleteMapping("/provider/{providerId}")
-    ResponseEntity<Void> deleteServiceProvidersById(@PathVariable int providerId);
+
+    @Operation( summary = "Obtener todas las solicitudes", description = "Obtiene una lista de solicitudes registradas")
+    @GetMapping("/request")
+    ResponseEntity<List<ServiceRequestDTO>> getAllRequests();
+
+    @Operation( summary = "Obtener una solicitud  de servicio  por id", description = "Obtiene una solicitud de servicio por su id")
+    @GetMapping("/request/{requestId}")
+    ResponseEntity<ServiceRequestDTO> getRequestsById(@PathVariable int requestId);
+
+    @Operation(summary = "Obtener solicitudes de servicio por usuario", description = "Obtiene una lista de solicitudes de servicio asociadas con un usuario")
+    @GetMapping("/request/by-user")
+    ResponseEntity<List<ServiceRequestDTO>> getServiceRequestsByUser(@RequestBody WebUserDTO user);
+
+    @Operation(summary = "Obtener solicitudes de servicio por proveedor", description = "Obtiene una lista de solicitudes de servicio asociadas con un proveedor")
+    @GetMapping("/request/by-service-provider")
+    ResponseEntity<List<ServiceRequestDTO>> getServiceRequestsByServiceProvider(@RequestBody ServiceProviderDTO serviceProviderDTO);
+
+    @Operation(summary = "Guardar solcitud de servicio", description = "Crear una solicitud de servicio")
+    @PostMapping("/request")
+    ResponseEntity<ServiceRequestDTO> createServiceRequest(@RequestBody ServiceRequestDTO serviceRequestDTO);
+
+    @Operation( summary = "Obtener todas las cotizaciones", description = "Obtiene una lista de solicitudes cotizaciones")
+    @GetMapping("/rfq")
+    ResponseEntity<List<ServiceRFQDTO>> getAllRFQ();
+
+    @Operation( summary = "Obtener una cotizacion  de servicio  por id", description = "Obtiene una cotizacion de servicio por su id")
+    @GetMapping("/rfq/{rfqId}")
+    ResponseEntity<ServiceRFQDTO> getServiceRFQById(@PathVariable int rfqId);
+
+    @Operation(summary = "Obtener cotizaciones de servicio por usuario", description = "Obtiene una lista de cotizaciones de servicio asociadas con un usuario")
+    @GetMapping("/rfq/by-user")
+    ResponseEntity<List<ServiceRFQDTO>> getServiceRFQByUser(@RequestBody WebUserDTO user);
+
+    @Operation(summary = "Obtener cotizaciones de servicio por proveedor", description = "Obtiene una lista de cotizaciones de servicio asociadas con un proveedor")
+    @GetMapping("/rfq/by-service-provider")
+    ResponseEntity<List<ServiceRFQDTO>> getServiceRFQByServiceProvider(@RequestBody ServiceProviderDTO serviceProviderDTO);
+
+    @Operation(summary = "Guardar cotizacion de servicio", description = "Crear una cotizacion de servicio")
+    @PostMapping("/rfq")
+    ResponseEntity<ServiceRFQDTO> createServiceRFQ(@RequestBody ServiceRFQDTO serviceRFQ);
+
+
+
 }

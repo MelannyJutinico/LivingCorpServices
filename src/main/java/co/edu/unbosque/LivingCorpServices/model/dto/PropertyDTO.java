@@ -30,6 +30,9 @@ public class PropertyDTO {
         this.isAvailableForSale = isAvailableForSale;
     }
 
+    public PropertyDTO() {
+    }
+
     public int getPropertyId() {
         return propertyId;
     }

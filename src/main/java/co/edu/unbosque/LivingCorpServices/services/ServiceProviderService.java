@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class ServiceProviderService {
 
+
     private final IServiceProviderRepository serviceProviderRepository;
     private final ModelMapper modelMapper;
 
@@ -49,10 +50,6 @@ public class ServiceProviderService {
     public ServiceProviderDTO saveServiceProvider(ServiceProviderDTO serviceProviderDTO) {
         ServiceProvider serviceProvider = modelMapper.map(serviceProviderDTO, ServiceProvider.class);
         return modelMapper.map(serviceProviderRepository.save(serviceProvider), ServiceProviderDTO.class);
-    }
-
-    public void deleteServiceProvider(int serviceProviderId){
-        serviceProviderRepository.deleteById(serviceProviderId);
     }
 
 
