@@ -3,10 +3,8 @@ package co.edu.unbosque.LivingCorpServices.services;
 import co.edu.unbosque.LivingCorpServices.exception.ServiceRequestNotFoundException;
 import co.edu.unbosque.LivingCorpServices.model.dto.ServiceProviderDTO;
 import co.edu.unbosque.LivingCorpServices.model.dto.ServiceRequestDTO;
-import co.edu.unbosque.LivingCorpServices.model.dto.WebUserDTO;
 import co.edu.unbosque.LivingCorpServices.model.entity.ServiceProvider;
 import co.edu.unbosque.LivingCorpServices.model.entity.ServiceRequest;
-import co.edu.unbosque.LivingCorpServices.model.entity.WebUser;
 import co.edu.unbosque.LivingCorpServices.repository.IServiceRequestRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +40,9 @@ public class ServiceRequestService {
                 .orElseThrow(() -> new ServiceRequestNotFoundException("Solicitud no encontrada"));
     }
 
-   public List<ServiceRequestDTO> getServiceRequestsByUser(WebUserDTO user) {
-        WebUser webUser = modelMapper.map(user, WebUser.class);
+   public List<ServiceRequestDTO> getServiceRequestsByUserName(String userName) {
         return serviceRequestRepository
-                .findByUser(webUser)
+                .findByUserName(userName)
                 .stream()
                 .map(serviceRequest -> modelMapper.map(serviceRequest, ServiceRequestDTO.class))
                 .collect(Collectors.toList());

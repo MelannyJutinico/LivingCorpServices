@@ -65,23 +65,17 @@ public class LivingCorpController implements ILivingCorpAPI{
     }
 
     @Override
-    public ResponseEntity<List<ServiceRequestDTO>> getServiceRequestsByUser(WebUserDTO user) {
-        List<ServiceRequestDTO> serviceRequests = serviceRequestService.getServiceRequestsByUser(user);
+    public ResponseEntity<List<ServiceRequestDTO>> getServiceRequestsByUser(String userName) {
+        List<ServiceRequestDTO> serviceRequests = serviceRequestService.getServiceRequestsByUserName(userName);
         return ResponseEntity.ok(serviceRequests);
     }
 
-    @Override
-    public ResponseEntity<List<ServiceRequestDTO>> getServiceRequestsByServiceProvider(ServiceProviderDTO serviceProviderDTO) {
-        List<ServiceRequestDTO> serviceRequests = serviceRequestService.getServiceRequestsByServiceProvider(serviceProviderDTO);
-        return ResponseEntity.ok(serviceRequests);
-    }
 
     @Override
     public ResponseEntity<ServiceRequestDTO> createServiceRequest(ServiceRequestDTO serviceRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceRequestService.saveServiceRequest(serviceRequestDTO));
     }
 
-    //aaaaaaaaaaaaaaaaa
 
     @Override
     public ResponseEntity<List<ServiceRFQDTO>> getAllRFQ() {
@@ -97,16 +91,12 @@ public class LivingCorpController implements ILivingCorpAPI{
     }
 
     @Override
-    public ResponseEntity<List<ServiceRFQDTO>> getServiceRFQByUser(WebUserDTO user) {
-        List<ServiceRFQDTO> serviceRFQRequests = serviceRFQService.getServiceRFQByUser(user);
+    public ResponseEntity<List<ServiceRFQDTO>> getServiceRFQByUser(String  userName) {
+        List<ServiceRFQDTO> serviceRFQRequests = serviceRFQService.getServiceRFQByUser(userName);
         return ResponseEntity.ok(serviceRFQRequests);
     }
 
-    @Override
-    public ResponseEntity<List<ServiceRFQDTO>> getServiceRFQByServiceProvider(ServiceProviderDTO serviceProviderDTO) {
-        List<ServiceRFQDTO> serviceRFQRequests = serviceRFQService.getServiceRFQByServiceProvider(serviceProviderDTO);
-        return ResponseEntity.ok(serviceRFQRequests);
-    }
+
 
     @Override
     public ResponseEntity<ServiceRFQDTO> createServiceRFQ(ServiceRFQDTO serviceRFQ) {

@@ -15,23 +15,21 @@ public class ServiceRFQ {
     private int rfqId;
     @Column(name = "RFQ_DATETIME")
     private Date rfqDateTime;
-    @ManyToOne
-    @JoinColumn(name = "USER_NAME" , referencedColumnName = "USER_NAME")
-    private WebUser user;
-    @ManyToOne
-    @JoinColumn(name = "PROPERTY_ID" , referencedColumnName = "PROPERTY_ID")
-    private Property property;
+    @Column(name = "USER_NAME")
+    private String userName;
+    @Column(name="PROPERTY_ID")
+    private int propertyId;
     @ManyToOne
     @JoinColumn(name = "SVC_PROVIDER_ID")
     private ServiceProvider serviceProvider;
     @Column(name = "REQUEST_DESCRIPTION")
     private String requestDescription;
 
-    public ServiceRFQ(int rfqId, Date rfqDateTime, WebUser user, Property property, ServiceProvider serviceProvider, String requestDescription) {
+    public ServiceRFQ(int rfqId, Date rfqDateTime, String userName, int propertyId, ServiceProvider serviceProvider, String requestDescription) {
         this.rfqId = rfqId;
         this.rfqDateTime = rfqDateTime;
-        this.user = user;
-        this.property = property;
+        this.userName = userName;
+        this.propertyId = propertyId;
         this.serviceProvider = serviceProvider;
         this.requestDescription = requestDescription;
     }
@@ -55,20 +53,20 @@ public class ServiceRFQ {
         this.rfqDateTime = rfqDateTime;
     }
 
-    public WebUser getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser(WebUser user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Property getProperty() {
-        return property;
+    public int getPropertyId() {
+        return propertyId;
     }
 
-    public void setProperty(Property property) {
-        this.property = property;
+    public void setPropertyId(int propertyId) {
+        this.propertyId = propertyId;
     }
 
     public ServiceProvider getServiceProvider() {

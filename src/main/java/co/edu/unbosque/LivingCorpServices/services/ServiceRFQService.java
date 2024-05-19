@@ -3,10 +3,8 @@ package co.edu.unbosque.LivingCorpServices.services;
 import co.edu.unbosque.LivingCorpServices.exception.ServiceRFQNotFoundException;
 import co.edu.unbosque.LivingCorpServices.model.dto.ServiceProviderDTO;
 import co.edu.unbosque.LivingCorpServices.model.dto.ServiceRFQDTO;
-import co.edu.unbosque.LivingCorpServices.model.dto.WebUserDTO;
 import co.edu.unbosque.LivingCorpServices.model.entity.ServiceProvider;
 import co.edu.unbosque.LivingCorpServices.model.entity.ServiceRFQ;
-import co.edu.unbosque.LivingCorpServices.model.entity.WebUser;
 import co.edu.unbosque.LivingCorpServices.repository.IServiceRFQRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +40,9 @@ public class ServiceRFQService {
                 .orElseThrow(() -> new ServiceRFQNotFoundException("Solicitud no encontrada"));
     }
 
-    public List<ServiceRFQDTO> getServiceRFQByUser(WebUserDTO user) {
-        WebUser webUser = modelMapper.map(user, WebUser.class);
+    public List<ServiceRFQDTO> getServiceRFQByUser(String userName) {
         return serviceRFQRepository
-                .findByUser(webUser)
+                .findByUserName(userName)
                 .stream()
                 .map(servicesRFQ -> modelMapper.map(servicesRFQ, ServiceRFQDTO.class))
                 .collect(Collectors.toList());

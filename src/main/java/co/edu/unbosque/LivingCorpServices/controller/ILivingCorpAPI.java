@@ -3,7 +3,6 @@ package co.edu.unbosque.LivingCorpServices.controller;
 import co.edu.unbosque.LivingCorpServices.model.dto.ServiceProviderDTO;
 import co.edu.unbosque.LivingCorpServices.model.dto.ServiceRFQDTO;
 import co.edu.unbosque.LivingCorpServices.model.dto.ServiceRequestDTO;
-import co.edu.unbosque.LivingCorpServices.model.dto.WebUserDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,12 +39,8 @@ public interface ILivingCorpAPI {
     ResponseEntity<ServiceRequestDTO> getRequestsById(@PathVariable int requestId);
 
     @Operation(summary = "Obtener solicitudes de servicio por usuario", description = "Obtiene una lista de solicitudes de servicio asociadas con un usuario")
-    @GetMapping("/request/by-user")
-    ResponseEntity<List<ServiceRequestDTO>> getServiceRequestsByUser(@RequestBody WebUserDTO user);
-
-    @Operation(summary = "Obtener solicitudes de servicio por proveedor", description = "Obtiene una lista de solicitudes de servicio asociadas con un proveedor")
-    @GetMapping("/request/by-service-provider")
-    ResponseEntity<List<ServiceRequestDTO>> getServiceRequestsByServiceProvider(@RequestBody ServiceProviderDTO serviceProviderDTO);
+    @GetMapping("/request/by-user/{userName}")
+    ResponseEntity<List<ServiceRequestDTO>> getServiceRequestsByUser(@PathVariable String userName);
 
     @Operation(summary = "Guardar solcitud de servicio", description = "Crear una solicitud de servicio")
     @PostMapping("/request")
@@ -60,12 +55,9 @@ public interface ILivingCorpAPI {
     ResponseEntity<ServiceRFQDTO> getServiceRFQById(@PathVariable int rfqId);
 
     @Operation(summary = "Obtener cotizaciones de servicio por usuario", description = "Obtiene una lista de cotizaciones de servicio asociadas con un usuario")
-    @GetMapping("/rfq/by-user")
-    ResponseEntity<List<ServiceRFQDTO>> getServiceRFQByUser(@RequestBody WebUserDTO user);
+    @GetMapping("/rfq/by-user/{userName}")
+    ResponseEntity<List<ServiceRFQDTO>> getServiceRFQByUser(@PathVariable String userName);
 
-    @Operation(summary = "Obtener cotizaciones de servicio por proveedor", description = "Obtiene una lista de cotizaciones de servicio asociadas con un proveedor")
-    @GetMapping("/rfq/by-service-provider")
-    ResponseEntity<List<ServiceRFQDTO>> getServiceRFQByServiceProvider(@RequestBody ServiceProviderDTO serviceProviderDTO);
 
     @Operation(summary = "Guardar cotizacion de servicio", description = "Crear una cotizacion de servicio")
     @PostMapping("/rfq")

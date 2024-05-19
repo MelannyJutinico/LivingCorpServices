@@ -6,16 +6,16 @@ public class ServiceRFQDTO {
 
     private int rfqId;
     private Date rfqDateTime;
-    private WebUserDTO user;
-    private PropertyDTO property;
+    private String userName;
+    private int propertyId;
     private ServiceProviderDTO serviceProvider;
     private String requestDescription;
 
-    public ServiceRFQDTO(int rfqId, Date rfqDateTime, WebUserDTO user, PropertyDTO property, ServiceProviderDTO serviceProvider, String requestDescription) {
+    public ServiceRFQDTO(int rfqId, Date rfqDateTime, String userName, int propertyId, ServiceProviderDTO serviceProvider, String requestDescription) {
         this.rfqId = rfqId;
         this.rfqDateTime = rfqDateTime;
-        this.user = user;
-        this.property = property;
+        this.userName = userName;
+        this.propertyId = propertyId;
         this.serviceProvider = serviceProvider;
         this.requestDescription = requestDescription;
     }
@@ -39,20 +39,20 @@ public class ServiceRFQDTO {
         this.rfqDateTime = rfqDateTime;
     }
 
-    public WebUserDTO getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser(WebUserDTO user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public PropertyDTO getProperty() {
-        return property;
+    public int getPropertyId() {
+        return propertyId;
     }
 
-    public void setProperty(PropertyDTO property) {
-        this.property = property;
+    public void setPropertyId(int propertyId) {
+        this.propertyId = propertyId;
     }
 
     public ServiceProviderDTO getServiceProvider() {

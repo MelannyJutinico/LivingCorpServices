@@ -15,12 +15,10 @@ public class ServiceRequest {
     private int requestId;
     @Column(name = "RQST_DATETIME")
     private Date requestDateTime;
-    @ManyToOne
-    @JoinColumn(name = "USER_NAME")
-    private WebUser user;
-    @ManyToOne
-    @JoinColumn(name = "PROPERTY_ID", referencedColumnName = "PROPERTY_ID")
-    private Property property;
+    @Column(name="USER_NAME")
+    private String userName;
+    @Column(name="PROPERTY_ID")
+    private int propertyId;
     @ManyToOne
     @JoinColumn(name = "SVC_PROVIDER_ID", referencedColumnName = "PROVIDER_ID")
     private ServiceProvider serviceProvider;
@@ -29,11 +27,11 @@ public class ServiceRequest {
     @Column(name = "SVC_DATETIME")
     private Date serviceDateTime;
 
-    public ServiceRequest(int requestId, Date requestDateTime, WebUser user, Property property, ServiceProvider serviceProvider, String requestDescription, Date serviceDateTime) {
+    public ServiceRequest(int requestId, Date requestDateTime, String userName, int propertyId, ServiceProvider serviceProvider, String requestDescription, Date serviceDateTime) {
         this.requestId = requestId;
         this.requestDateTime = requestDateTime;
-        this.user = user;
-        this.property = property;
+        this.userName = userName;
+        this.propertyId = propertyId;
         this.serviceProvider = serviceProvider;
         this.requestDescription = requestDescription;
         this.serviceDateTime = serviceDateTime;
@@ -58,20 +56,20 @@ public class ServiceRequest {
         this.requestDateTime = requestDateTime;
     }
 
-    public WebUser getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser(WebUser user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Property getProperty() {
-        return property;
+    public int getPropertyId() {
+        return propertyId;
     }
 
-    public void setProperty(Property property) {
-        this.property = property;
+    public void setPropertyId(int propertyId) {
+        this.propertyId = propertyId;
     }
 
     public ServiceProvider getServiceProvider() {
