@@ -6,17 +6,17 @@ public class ServiceRequestDTO {
 
     private int requestId;
     private Date requestDateTime;
-    private WebUserDTO user;
-    private PropertyDTO property;
+    private String userName;
+    private int propertyId;
     private ServiceProviderDTO serviceProvider;
     private String requestDescription;
     private Date serviceDateTime;
 
-    public ServiceRequestDTO(int requestId, Date requestDateTime, WebUserDTO user, PropertyDTO property, ServiceProviderDTO serviceProvider, String requestDescription, Date serviceDateTime) {
+    public ServiceRequestDTO(int requestId, Date requestDateTime, String userName, int propertyId, ServiceProviderDTO serviceProvider, String requestDescription, Date serviceDateTime) {
         this.requestId = requestId;
         this.requestDateTime = requestDateTime;
-        this.user = user;
-        this.property = property;
+        this.userName = userName;
+        this.propertyId = propertyId;
         this.serviceProvider = serviceProvider;
         this.requestDescription = requestDescription;
         this.serviceDateTime = serviceDateTime;
@@ -41,20 +41,20 @@ public class ServiceRequestDTO {
         this.requestDateTime = requestDateTime;
     }
 
-    public WebUserDTO getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser(WebUserDTO user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public PropertyDTO getProperty() {
-        return property;
+    public int getPropertyId() {
+        return propertyId;
     }
 
-    public void setProperty(PropertyDTO property) {
-        this.property = property;
+    public void setPropertyId(int propertyId) {
+        this.propertyId = propertyId;
     }
 
     public ServiceProviderDTO getServiceProvider() {
